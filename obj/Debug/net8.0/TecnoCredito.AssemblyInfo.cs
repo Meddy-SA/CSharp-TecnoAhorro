@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TecnoCredito")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a69618bb0daf4147988d47c889159491c2ce92e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("TecnoCredito")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TecnoCredito")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

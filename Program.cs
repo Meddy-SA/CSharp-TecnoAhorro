@@ -6,6 +6,7 @@ using TecnoCredito.Contexts;
 using TecnoCredito.Models.Authentication;
 using TecnoCredito.Models.System;
 using TecnoCredito.Services;
+using TecnoCredito.Services.Interfaces;
 using TecnoCredito.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +51,10 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 builder.Services.AddScoped<IUserTwoFactorTokenProvider<AppUser>, TwoFactorTokenProvider>();
 builder.Services.Configure<IdentityOptions>(ConfigureProgram.ConfigureIdentityOptions);
 builder.Services.ConfigureApplicationCookie(ConfigureProgram.ConfigureAppCookie);
+#endregion
+
+#region Dependency Inject Services
+builder.Services.AddTransient<IEmailSender, EmailService>();
 #endregion
 
 builder.Services.AddEndpointsApiExplorer();
