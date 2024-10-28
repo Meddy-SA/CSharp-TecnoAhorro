@@ -1,4 +1,4 @@
-namespace TecnoCredito.Models.DTOs;
+namespace TecnoCredito.Models.Authentication.DTOs;
 
 public class LoginDTO
 {

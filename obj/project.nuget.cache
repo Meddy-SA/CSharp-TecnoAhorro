@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bdfHeqE6we6+fQK1Sxi6AP8BbGMc8ZoJ7oiOm+/RJkEnbB0dCnbewZ9pAJsFtZjJ93k+/av7Z10+/rUepWbKdQ==",
+  "dgSpecHash": "PPomFzWwKo70JNGUVLfU+fm+uxCYEB5byJjPLSZVHgKPAQz6pSmD4y9NO7xYYg8iQOdQw2nVWZWDC5ssaKWMYw==",
   "success": true,
   "projectFilePath": "/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/TecnoCredito.csproj",
   "expectedPackageFiles": [
@@ -42,6 +42,7 @@
     "/Users/leonardoillanez/.nuget/packages/microsoft.entityframeworkcore.design/8.0.8/microsoft.entityframeworkcore.design.8.0.8.nupkg.sha512",
     "/Users/leonardoillanez/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.8/microsoft.entityframeworkcore.relational.8.0.8.nupkg.sha512",
     "/Users/leonardoillanez/.nuget/packages/microsoft.entityframeworkcore.sqlserver/8.0.8/microsoft.entityframeworkcore.sqlserver.8.0.8.nupkg.sha512",
+    "/Users/leonardoillanez/.nuget/packages/microsoft.entityframeworkcore.tools/8.0.8/microsoft.entityframeworkcore.tools.8.0.8.nupkg.sha512",
     "/Users/leonardoillanez/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/leonardoillanez/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "/Users/leonardoillanez/.nuget/packages/microsoft.extensions.caching.memory/8.0.0/microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",

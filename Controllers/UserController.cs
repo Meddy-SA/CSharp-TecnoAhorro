@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TecnoCredito.Authentication.DTOs;
+using TecnoCredito.Models.Authentication.DTOs;
 using TecnoCredito.Models.DTOs;
 using TecnoCredito.Services.Interfaces;
 
@@ -32,5 +32,29 @@ public class UserController(IUserHandle userHandle) : ControllerBase
   {
     var responseDTO = await userHandle.CreateUser(userDTO);
     return Ok(new { responseDTO });
+  }
+
+
+  // Metodos para llenar datos de prueba.
+
+  [HttpGet("CreateRoles")]
+  public async Task<ActionResult> CreateRoles()
+  {
+    await userHandle.EnsureRolesAsync();
+    return Ok();
+  }
+
+  [HttpGet("CreateTestUser")]
+  public async Task<ActionResult> CreateUser()
+  {
+    await userHandle.EnsureTestUserAsync();
+    return Ok();
+  }
+
+  [HttpGet("CreateMenu")]
+  public async Task<ActionResult> MenuCreate()
+  {
+    await userHandle.EnsureTestMenuAsync();
+    return Ok();
   }
 }

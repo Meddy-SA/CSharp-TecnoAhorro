@@ -16,5 +16,7 @@ public static class ModelBuilderExtensions
     builder.ApplyConfiguration(new PaymentMethodConfiguration());
     builder.ApplyConfiguration(new ProductsConfiguration());
     builder.ApplyConfiguration(new ProductFeatureConfiguration());
+    builder.ApplyConfiguration(new SysMenuItemConfiguration());
+    builder.ApplyConfiguration(new SysMenuCategoryConfiguration());
   }
 }

@@ -1,4 +1,4 @@
-using TecnoCredito.Authentication.DTOs;
+using TecnoCredito.Models.Authentication.DTOs;
 using TecnoCredito.Models.DTOs;
 
 namespace TecnoCredito.Services.Interfaces;
@@ -10,4 +10,8 @@ public interface IUserHandle
   Task<ResponseDTO<string>> ReSendEmailValidate(string email);
   Task<ResponseDTO<string>> ValidateEmail(ValidateEmailDTO validateEmailDTO);
   Task<ResponseDTO<AppUserDTO>> CreateUser(AppUserDTO userDTO, string returnUrl = null!);
+
+  Task EnsureRolesAsync();
+  Task EnsureTestUserAsync();
+  Task EnsureTestMenuAsync();
 }

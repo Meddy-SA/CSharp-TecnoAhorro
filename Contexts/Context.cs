@@ -4,6 +4,7 @@ using TecnoCredito.Models;
 using TecnoCredito.Models.Authentication;
 using TecnoCredito.Models.Money;
 using TecnoCredito.Models.Products;
+using TecnoCredito.Models.System;
 
 namespace TecnoCredito.Contexts;
 
@@ -36,5 +37,10 @@ public class Context(DbContextOptions<Context> options) : IdentityDbContext<AppU
   public DbSet<CustomerContract> CustomerContracts { get; set; } = null!;
   public DbSet<Installment> Installments { get; set; } = null!;
   public DbSet<Payment> Payments { get; set; } = null!;
+  #endregion
+
+  #region System
+  public DbSet<SysMenuCategory> SysMenuCategories { get; set; } = null!;
+  public DbSet<SysMenuItem> SysMenuItems { get; set; } = null!;
   #endregion
 }

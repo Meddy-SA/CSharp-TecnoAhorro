@@ -1,3 +1,4 @@
+global using TecnoCredito.Extensions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,24 +7,41 @@ using TecnoCredito.Contexts;
 using TecnoCredito.Models.Authentication;
 using TecnoCredito.Models.System;
 using TecnoCredito.Services;
-using TecnoCredito.Services.Interfaces;
-using TecnoCredito.Extensions;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Configuration
 
+// Add configuration for appsettings
+builder.Configuration
+  .SetBasePath(builder.Environment.ContentRootPath)
+  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+  .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+  .AddEnvironmentVariables();
+
+
+var appSettings = builder.Configuration.GetSection("App").Get<AppSettings>();
+if (appSettings != null)
+{
+  builder.Services.AddSingleton(appSettings);
+}
+else
+{
+  throw new InvalidOperationException("No existe la sección App en la configuración");
+}
+
 #region Configure CORS
 builder.Services.AddCors(options =>
 {
-  options.AddPolicy("AllowSpecificOrigin",
+  options.AddPolicy("cors",
     builderPolicy =>
     {
-      builderPolicy.WithOrigins("http://localhost:5173", "https://meddy.myiphost.com")
+      builderPolicy.WithOrigins(appSettings.Cors.Split(",", StringSplitOptions.RemoveEmptyEntries))
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials()
-        .SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
+      .SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
     });
 });
 #endregion
@@ -54,7 +72,8 @@ builder.Services.ConfigureApplicationCookie(ConfigureProgram.ConfigureAppCookie)
 #endregion
 
 #region Dependency Inject Services
-builder.Services.AddTransient<IEmailSender, EmailService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddDependencyInjection();
 #endregion
 
 builder.Services.AddEndpointsApiExplorer();
@@ -80,6 +99,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region Configure Upload
+// Configure IIS Server Options
+builder.Services.Configure<IISServerOptions>(options => { options.MaxRequestBodySize = builder.Configuration.GetSection("FileUpload:MaxFileSize").Get<long>(); });
+// Configre Kestrel 
+builder.Services.Configure<KestrelServerOptions>(options => { options.Limits.MaxRequestBodySize = builder.Configuration.GetSection("FileUpload:MaxFileSize").Get<long?>(); });
+// Configure Form Options
+builder.Services.Configure<FormOptions>(options => { options.MultipartBodyLengthLimit = builder.Configuration.GetSection("FileUpload:MaxFileSize").Get<long>(); });
+#endregion Configure Upload
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -89,9 +117,10 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// UNDONE: Voy a comentar la siguiente linea para pruebas.
+// app.UseHttpsRedirection();
 
-app.UseCors("AllowSpecificOrigin");
+app.UseCors("cors");
 
 app.UseRouting();
 
