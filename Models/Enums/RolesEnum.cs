@@ -4,12 +4,14 @@ namespace TecnoCredito.Models.Enums;
 
 public enum RolesEnum
 {
+  [Display(Name = "Visitante")]
+  Visitante = 0,
   [Display(Name = "Usuario")]
-  Usuario,
+  Usuario = 1,
   [Display(Name = "Vendedor")]
-  Vendedor,
+  Vendedor = 2,
   [Display(Name = "Administrador")]
-  Admin,
+  Admin = 99,
   [Display(Name = "Super Administrador")]
-  SuperAdmin,
+  SuperAdmin = 100,
 }

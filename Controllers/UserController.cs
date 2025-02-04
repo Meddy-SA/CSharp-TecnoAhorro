@@ -11,50 +11,58 @@ namespace TecnoCredito.Controllers;
 [Route("[controller]")]
 public class UserController(IUserHandle userHandle) : ControllerBase
 {
-  private readonly IUserHandle userHandle = userHandle;
+    private readonly IUserHandle userHandle = userHandle;
 
-  [HttpGet("ReSendCode/{email}")]
-  public async Task<ActionResult<ResponseDTO<string>>> ReSend(string email)
-  {
-    var response = await userHandle.ReSendEmailValidate(email);
-    return Ok(new { response });
-  }
+    [HttpGet("ReSendCode/{email}")]
+    public async Task<ActionResult<ResponseDTO<string>>> ReSend(string email)
+    {
+        var response = await userHandle.ReSendEmailValidate(email);
+        return Ok(new { response });
+    }
 
-  [HttpPost("Login")]
-  public async Task<ActionResult<ResponseDTO<AppUserDTO>>> Login(LoginDTO loginDTO)
-  {
-    var response = await userHandle.Login(loginDTO);
-    return Ok(new { response });
-  }
+    [HttpPost("Login")]
+    public async Task<ActionResult<ResponseDTO<AppUserDTO>>> Login(LoginDTO loginDTO)
+    {
+        var response = await userHandle.Login(loginDTO);
+        return Ok(new { response });
+    }
 
-  [HttpPost]
-  public async Task<ActionResult<ResponseDTO<AppUserDTO>>> CreateAccount(AppUserDTO userDTO)
-  {
-    var responseDTO = await userHandle.CreateUser(userDTO);
-    return Ok(new { responseDTO });
-  }
+    [HttpPost("PreRegister")]
+    public async Task<ActionResult<ResponseDTO<PreRegisterDTO>>> PreRegister(
+        PreRegisterDTO preRegisterDTO
+    )
+    {
+        var response = await userHandle.PreRegister(preRegisterDTO);
+        return this.HandleResponse(response);
+    }
 
+    [HttpPost]
+    public async Task<ActionResult<ResponseDTO<AppUserDTO>>> CreateAccount(AppUserDTO userDTO)
+    {
+        var responseDTO = await userHandle.CreateUser(userDTO);
+        return Ok(new { responseDTO });
+    }
 
-  // Metodos para llenar datos de prueba.
+    // Metodos para llenar datos de prueba.
 
-  [HttpGet("CreateRoles")]
-  public async Task<ActionResult> CreateRoles()
-  {
-    await userHandle.EnsureRolesAsync();
-    return Ok();
-  }
+    [HttpPost("CreateRoles")]
+    public async Task<ActionResult> CreateRoles()
+    {
+        await userHandle.EnsureRolesAsync();
+        return Ok();
+    }
 
-  [HttpGet("CreateTestUser")]
-  public async Task<ActionResult> CreateUser()
-  {
-    await userHandle.EnsureTestUserAsync();
-    return Ok();
-  }
+    [HttpPost("CreateTestUser")]
+    public async Task<ActionResult> CreateUser()
+    {
+        await userHandle.EnsureTestUserAsync();
+        return Ok();
+    }
 
-  [HttpGet("CreateMenu")]
-  public async Task<ActionResult> MenuCreate()
-  {
-    await userHandle.EnsureTestMenuAsync();
-    return Ok();
-  }
+    [HttpPost("CreateMenu")]
+    public async Task<ActionResult> MenuCreate()
+    {
+        await userHandle.EnsureTestMenuAsync();
+        return Ok();
+    }
 }
