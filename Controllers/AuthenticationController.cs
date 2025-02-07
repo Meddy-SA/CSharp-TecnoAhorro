@@ -9,44 +9,34 @@ namespace TecnoCredito.Controllers;
 [AllowAnonymous]
 [ApiController]
 [Route("[controller]")]
-public class AuthenticationController(IUserHandle userHandle) : ControllerBase
+public class AuthenticationController(IAuthenticationHandle authHandle) : ControllerBase
 {
-    private readonly IUserHandle userHandle = userHandle;
+    private readonly IAuthenticationHandle authHandle = authHandle;
 
     [HttpGet("re-send/{email}")]
     public async Task<ActionResult<ResponseDTO<string>>> ReSend(string email)
     {
-        var response = await userHandle.ReSendEmailValidate(email);
+        var response = await authHandle.ReSendEmailValidate(email);
         return this.HandleResponse(response);
     }
 
     [HttpPost("login")]
     public async Task<ActionResult<ResponseDTO<AppUserDTO>>> Login(LoginDTO loginDTO)
     {
-        var response = await userHandle.Login(loginDTO);
-        return this.HandleResponse(response);
-    }
-
-    [HttpPost("register")]
-    public async Task<ActionResult<ResponseDTO<PreRegisterDTO>>> PreRegister(
-        PreRegisterDTO preRegisterDTO
-    )
-    {
-        var response = await userHandle.PreRegister(preRegisterDTO);
+        var response = await authHandle.Login(loginDTO);
         return this.HandleResponse(response);
     }
 
     [HttpPost("create-account")]
-    public async Task<ActionResult<ResponseDTO<AppUserDTO>>> CreateAccount(AppUserDTO userDTO)
+    public async Task<ActionResult<ResponseDTO<AppUserDTO>>> CreateAccount(PreRegisterDTO userDTO)
     {
-        var responseDTO = await userHandle.CreateUser(userDTO);
+        var responseDTO = await authHandle.CreateUser(userDTO);
         return this.HandleResponse(responseDTO);
     }
 
     [HttpPut("profile/update")]
-    public async Task<ActionResult<ResponseDTO<AppUserDTO>>> ProfileUpdate(AppUserDTO userDTO)
+    public ActionResult<ResponseDTO<AppUserDTO>> ProfileUpdate(AppUserDTO userDTO)
     {
-        var responseDTO = await userHandle.CreateUser(userDTO);
-        return Ok(new { responseDTO });
+        return Ok();
     }
 }

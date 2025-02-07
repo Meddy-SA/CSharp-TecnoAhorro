@@ -1,6 +1,6 @@
 using AutoMapper;
 using TecnoCredito.Models.Authentication;
-using TecnoCredito.Models.DTOs;
+using TecnoCredito.Models.Authentication.DTOs;
 
 namespace TecnoCredito.Contexts.AutoMapper;
 

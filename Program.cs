@@ -40,6 +40,9 @@ builder
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(ConfigureProgram.ConfigureSwaggerAuth);
 
+// Add DbInitializer
+builder.Services.AddScoped<DbInitializer>();
+
 // Configure JWT
 builder.Services.ConfigureJwtSetting(builder.Configuration);
 
@@ -47,9 +50,6 @@ builder.Services.ConfigureJwtSetting(builder.Configuration);
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-
-// Add DbInitializer
-builder.Services.AddSingleton<DbInitializer>();
 
 // Ejecutar la inicialización
 using (var scope = app.Services.CreateScope())

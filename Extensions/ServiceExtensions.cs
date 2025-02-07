@@ -235,7 +235,7 @@ public static class ServiceExtensions
         services.AddScoped<IPdfService, PdfService>();
         services.AddScoped<IProductHandle, ProductService>();
         services.AddScoped<ISysMenu, SysMenuService>();
-        services.AddScoped<IUserHandle, UserHandleService>();
+        services.AddScoped<IAuthenticationHandle, AuthenticationService>();
 
         return services;
     }

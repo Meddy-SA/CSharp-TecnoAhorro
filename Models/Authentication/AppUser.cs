@@ -53,4 +53,20 @@ public class AppUser : IdentityUser
     {
         UserRoles = new HashSet<AppUserRole>();
     }
+
+    // Método de ayuda para obtener el nombre completo
+    public string ToFullName()
+    {
+        var parts = new List<string> { FirstName };
+
+        if (!string.IsNullOrWhiteSpace(MiddleName))
+            parts.Add(MiddleName);
+
+        parts.Add(LastName);
+
+        if (!string.IsNullOrWhiteSpace(SecondSurname))
+            parts.Add(SecondSurname);
+
+        return string.Join(" ", parts);
+    }
 }
