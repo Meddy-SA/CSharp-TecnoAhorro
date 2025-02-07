@@ -1,4 +1,5 @@
 global using TecnoCredito.Extensions;
+using TecnoCredito.Middlewares;
 using TecnoCredito.Models.System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,17 @@ builder.Services.ConfigureJwtSetting(builder.Configuration);
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+// Add DbInitializer
+builder.Services.AddSingleton<DbInitializer>();
+
+// Ejecutar la inicialización
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var initializer = services.GetRequiredService<DbInitializer>();
+    await initializer.InitializeUsersAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,50 +1,68 @@
+using Microsoft.AspNetCore.Identity;
 using TecnoCredito.Models.Authentication;
 using TecnoCredito.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
 
 namespace TecnoCredito.Services;
 
 public class TwoFactorTokenProvider : IUserTwoFactorTokenProvider<AppUser>
 {
-  public static string ProviderName => "CustomTwoFactorProvider";
-  private readonly UserManager<AppUser> userManager;
-  private readonly IEmailSender emailService;
-  private static string TitleApp => "Tecno Ahorro";
+    public static string ProviderName => "CustomTwoFactorProvider";
+    private readonly UserManager<AppUser> userManager;
+    private readonly IEmailSender emailService;
+    private static string TitleApp => "Tecno Ahorro";
 
-  public TwoFactorTokenProvider(UserManager<AppUser> userManager, IEmailSender emailService)
-  {
-    this.userManager = userManager;
-    this.emailService = emailService;
-  }
+    public TwoFactorTokenProvider(UserManager<AppUser> userManager, IEmailSender emailService)
+    {
+        this.userManager = userManager;
+        this.emailService = emailService;
+    }
 
-  public async Task<bool> CanGenerateTwoFactorTokenAsync(UserManager<AppUser> manager, AppUser user)
-  {
-    var providers = await manager.GetValidTwoFactorProvidersAsync(user);
-    bool enabled = providers.Any(_ => _ == "Email" || _ == "Phone");
-    return enabled;
-  }
+    public async Task<bool> CanGenerateTwoFactorTokenAsync(
+        UserManager<AppUser> manager,
+        AppUser user
+    )
+    {
+        var providers = await manager.GetValidTwoFactorProvidersAsync(user);
+        bool enabled = providers.Any(_ => _ == "Email" || _ == "Phone");
+        return enabled;
+    }
 
-  public async Task<string> GenerateAsync(string purpose, UserManager<AppUser> manager, AppUser user)
-  {
-    var token = await manager.GenerateTwoFactorTokenAsync(user, purpose);
+    public async Task<string> GenerateAsync(
+        string purpose,
+        UserManager<AppUser> manager,
+        AppUser user
+    )
+    {
+        var token = await manager.GenerateTwoFactorTokenAsync(user, purpose);
 
-    var emailBody = GenerateEmailBody(token, emailService.GetLogoAsString());
+        var emailBody = GenerateEmailBody(token, emailService.GetLogoAsString());
 
-    await emailService.SendEmailAsync(user.Email!, "Código de verificación de dos factores", emailBody, "Obra Social Provincia", true);
+        await emailService.SendEmailAsync(
+            user.Email!,
+            "Código de verificación de dos factores",
+            emailBody,
+            true
+        );
 
-    return token;
-  }
+        return token;
+    }
 
-  public async Task<bool> ValidateAsync(string purpose, string token, UserManager<AppUser> manager, AppUser user)
-  {
-    var userToken = await userManager.VerifyTwoFactorTokenAsync(user, purpose, token);
-    return userToken;
-  }
+    public async Task<bool> ValidateAsync(
+        string purpose,
+        string token,
+        UserManager<AppUser> manager,
+        AppUser user
+    )
+    {
+        var userToken = await userManager.VerifyTwoFactorTokenAsync(user, purpose, token);
+        return userToken;
+    }
 
-  private static string GenerateEmailBody(string token, string image)
-  {
-    // HTML personalizado para el correo electrónico
-    var htmlBody = $@"
+    private static string GenerateEmailBody(string token, string image)
+    {
+        // HTML personalizado para el correo electrónico
+        var htmlBody =
+            $@"
             <html>
                 <body style='background-color: #ffffe0;'>
                     <div style='text-align: center;'>
@@ -59,6 +77,6 @@ public class TwoFactorTokenProvider : IUserTwoFactorTokenProvider<AppUser>
             </html>
         ";
 
-    return htmlBody;
-  }
+        return htmlBody;
+    }
 }

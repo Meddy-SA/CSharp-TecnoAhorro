@@ -228,12 +228,14 @@ public static class ServiceExtensions
 
     public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
     {
+        services.AddScoped<IRazorViewRenderer, RazorViewRenderer>();
         services.AddScoped<ICategoryHandle, CategoryService>();
-        services.AddTransient<IEmailSender, EmailService>();
+        services.AddScoped<IEmailSender, EmailService>();
         services.AddScoped<IEnumeratorHandle, EnumeratorService>();
-        services.AddTransient<IProductHandle, ProductService>();
-        services.AddTransient<ISysMenu, SysMenuService>();
-        services.AddTransient<IUserHandle, UserHandleService>();
+        services.AddScoped<IPdfService, PdfService>();
+        services.AddScoped<IProductHandle, ProductService>();
+        services.AddScoped<ISysMenu, SysMenuService>();
+        services.AddScoped<IUserHandle, UserHandleService>();
 
         return services;
     }

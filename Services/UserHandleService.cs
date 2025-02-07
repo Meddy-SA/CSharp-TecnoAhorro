@@ -324,12 +324,7 @@ public class UserHandleService(
 
             var emailBody = BodyEmail(user.Id, code);
 
-            await emailSender.SendEmailAsync(
-                userDTO.Email,
-                "Confirmar Correo",
-                emailBody,
-                user.FullName()
-            );
+            await emailSender.SendEmailAsync(userDTO.Email, "Confirmar Correo", emailBody, true);
 
             if (userManager.Options.SignIn.RequireConfirmedAccount)
             {
@@ -401,13 +396,7 @@ public class UserHandleService(
             code = WebEncoders.Base64UrlEncode(System.Text.Encoding.UTF8.GetBytes(code));
 
             var emailBody = BodyEmail(user.Id, code);
-            await emailSender.SendEmailAsync(
-                email,
-                "Confirmar Correo",
-                emailBody,
-                user.FullName(),
-                true
-            );
+            await emailSender.SendEmailAsync(email, "Confirmar Correo", emailBody, true);
             responseDTO.IsSuccess = true;
             responseDTO.Result = user.Id;
         }
@@ -538,37 +527,6 @@ public class UserHandleService(
         };
         var error = customErrors.FirstOrDefault(e => e.Code == code)!;
         return new() { Code = error.Code, Description = error.Description };
-    }
-
-    public async Task EnsureRolesAsync()
-    {
-        foreach (var rol in Enum.GetValues<RolesEnum>())
-        {
-            var nameRol = rol.ToString();
-            var alreadyExists = await roleManager.RoleExistsAsync(nameRol);
-            if (!alreadyExists)
-            {
-                await roleManager.CreateAsync(new AppRole(nameRol));
-            }
-        }
-    }
-
-    public async Task EnsureTestUserAsync()
-    {
-        var testUser = await userManager.FindByEmailAsync("leonardoillanez@meddyai.com");
-        if (testUser == null)
-        {
-            testUser = new AppUser
-            {
-                FirstName = "Leonardo",
-                LastName = "Illanez",
-                UserName = "leonardoilla777",
-                EmailConfirmed = true,
-                Email = "leonardoillanez@meddyai.com",
-            };
-            await userManager.CreateAsync(testUser, "Password123!");
-        }
-        await userManager.AddToRoleAsync(testUser, "SuperAdmin");
     }
 
     public async Task EnsureTestMenuAsync()

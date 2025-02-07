@@ -149,3 +149,10 @@
 /Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/obj/Debug/net8.0/TecnoCredito.sourcelink.json
+/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/obj/Debug/net8.0/TecnoCredito.RazorAssemblyInfo.cache
+/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/obj/Debug/net8.0/TecnoCredito.RazorAssemblyInfo.cs
+/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/bin/Debug/net8.0/DinkToPdf.dll
+/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/bin/Debug/net8.0/Microsoft.AspNetCore.Razor.Language.dll
+/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/bin/Debug/net8.0/Microsoft.CodeAnalysis.Razor.dll
+/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/bin/Debug/net8.0/RazorLight.dll

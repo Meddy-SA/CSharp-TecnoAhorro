@@ -17,3 +17,19 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = /Users/leonardoillanez/Projects/AspNetCore/TecnoCredito
 build_property._RazorSourceGeneratorDebug = 
+
+[/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/Views/Emails/invoice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW1haWxzL2ludm9pY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/Views/Emails/welcome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW1haWxzL3dlbGNvbWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/Views/Pdfs/product.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGRmcy9wcm9kdWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/leonardoillanez/Projects/AspNetCore/TecnoCredito/Views/Pdfs/report.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGRmcy9yZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
