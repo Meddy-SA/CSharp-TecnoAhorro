@@ -46,10 +46,12 @@ public static class IdentityConfiguration
 
             // Configuración de la relación con AppUser
             entity.Property(e => e.AppUserId).HasMaxLength(450);
+
             entity
                 .HasOne(p => p.AppUser)
-                .WithOne()
-                .HasForeignKey<PreRegister>(p => p.AppUserId)
+                .WithMany(a => a.PreRegisters)
+                .HasForeignKey(p => p.AppUserId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
 
             // Índice en Email

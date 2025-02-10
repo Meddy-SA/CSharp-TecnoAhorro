@@ -96,7 +96,7 @@ public class AuthenticationService(
                 // Obtengo los roles del usuario para enviar al token.
                 var roles = await userManager.GetRolesAsync(userApp);
                 var token = security.GenerateToken(userApp, roles);
-                var rolesEnum = EnumExtensions.GetListRoleForName(roles);
+                var rolesEnum = EnumExtensions.GetRoleForName(roles);
                 var menu = await sysMenu.GetMenuForRole(rolesEnum);
 
                 var appUserDTO = new AppUserDTO
@@ -275,6 +275,7 @@ public class AuthenticationService(
                 Country = preRegister.Country,
                 TermsAccepted = preRegister.TermsAccepted,
                 EmailUpdated = true,
+                CreatedAt = DateTime.UtcNow,
             };
 
             await context.PreRegisters.AddAsync(newPreRegister);
@@ -581,6 +582,6 @@ public class AuthenticationService(
     {
         string categoryName = "Parametros";
         List<RolesEnum> roles = [RolesEnum.SuperAdmin, RolesEnum.Admin];
-        await sysMenu.AddCategoryAsync(categoryName, roles);
+        await sysMenu.AddCategoryAsync(categoryName, roles.ToIntList());
     }
 }

@@ -45,7 +45,7 @@
     <h1>Lista de Productos</h1>
   </div>
   <div class="date">
-    Fecha de generación: @Model.GeneratedDate.ToString()
+    Fecha de generación: @(Model.GeneratedDate?.ToString() ?? "No disponible")
   </div>
   <table>
     <thead>

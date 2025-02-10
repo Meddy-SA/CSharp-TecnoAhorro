@@ -1,4 +1,5 @@
 global using TecnoCredito.Extensions;
+using System.Text.Json;
 using TecnoCredito.Middlewares;
 using TecnoCredito.Models.System;
 
@@ -33,7 +34,7 @@ builder
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; // Devuelve el json en camelCase, si es null devuelve tal cual el modelo.
     });
 
 // Configure Swagger

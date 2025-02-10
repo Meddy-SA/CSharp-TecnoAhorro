@@ -114,7 +114,7 @@ namespace TecnoCredito.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Roles = table.Column<string>(type: "varchar(100)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -268,7 +268,7 @@ namespace TecnoCredito.Migrations
                     TermsAccepted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     EmailUpdated = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    AppUserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -279,11 +279,6 @@ namespace TecnoCredito.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_PreRegisters_AspNetUsers_AppUserId1",
-                        column: x => x.AppUserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -326,7 +321,7 @@ namespace TecnoCredito.Migrations
                     Command = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Badge = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
                     SysMenuItemId = table.Column<int>(type: "int", nullable: true),
-                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Roles = table.Column<string>(type: "varchar(100)", nullable: true),
                     SysMenuCategoryId = table.Column<int>(type: "int", nullable: true),
                     Order = table.Column<short>(type: "smallint", nullable: false)
                 },
@@ -358,7 +353,7 @@ namespace TecnoCredito.Migrations
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     InstallmentNumber = table.Column<int>(type: "int", nullable: false),
-                    Interest = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Interest = table.Column<decimal>(type: "decimal(5,2)", nullable: true),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -573,14 +568,7 @@ namespace TecnoCredito.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_PreRegisters_AppUserId",
                 table: "PreRegisters",
-                column: "AppUserId",
-                unique: true,
-                filter: "[AppUserId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PreRegisters_AppUserId1",
-                table: "PreRegisters",
-                column: "AppUserId1");
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PreRegisters_Email",

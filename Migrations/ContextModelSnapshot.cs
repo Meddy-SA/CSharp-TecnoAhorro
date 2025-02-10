@@ -267,15 +267,15 @@ namespace TecnoCredito.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AppUserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Country")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)")
                         .HasDefaultValue("ar");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("EmailUpdated")
                         .ValueGeneratedOnAdd()
@@ -294,11 +294,7 @@ namespace TecnoCredito.Migrations
 
                     b.HasKey("Email");
 
-                    b.HasIndex("AppUserId")
-                        .IsUnique()
-                        .HasFilter("[AppUserId] IS NOT NULL");
-
-                    b.HasIndex("AppUserId1");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -367,7 +363,7 @@ namespace TecnoCredito.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Interest")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -638,7 +634,7 @@ namespace TecnoCredito.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Roles")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -675,7 +671,7 @@ namespace TecnoCredito.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<string>("Roles")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Style")
                         .HasMaxLength(50)
@@ -758,13 +754,9 @@ namespace TecnoCredito.Migrations
             modelBuilder.Entity("TecnoCredito.Models.Authentication.PreRegister", b =>
                 {
                     b.HasOne("TecnoCredito.Models.Authentication.AppUser", "AppUser")
-                        .WithOne()
-                        .HasForeignKey("TecnoCredito.Models.Authentication.PreRegister", "AppUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("TecnoCredito.Models.Authentication.AppUser", null)
                         .WithMany("PreRegisters")
-                        .HasForeignKey("AppUserId1");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("AppUser");
                 });

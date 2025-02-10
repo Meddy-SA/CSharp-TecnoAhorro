@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TecnoCredito.Contexts;
 using TecnoCredito.Models.DTOs;
-using TecnoCredito.Models.Enums;
 using TecnoCredito.Models.System;
 using TecnoCredito.Services.Interfaces;
 
@@ -12,7 +11,7 @@ public class SysMenuService(Context context) : ISysMenu
 {
     private readonly Context context = context;
 
-    public async Task<ResponseDTO<string>> GetMenuForRole(List<RolesEnum> rolesToFilter)
+    public async Task<ResponseDTO<string>> GetMenuForRole(List<int> rolesToFilter)
     {
         var response = new ResponseDTO<string>();
         try
@@ -52,7 +51,7 @@ public class SysMenuService(Context context) : ISysMenu
         return response;
     }
 
-    public async Task<bool> AddCategoryAsync(string name, List<RolesEnum> roles)
+    public async Task<bool> AddCategoryAsync(string name, List<int> roles)
     {
         try
         {
@@ -67,7 +66,7 @@ public class SysMenuService(Context context) : ISysMenu
         return true;
     }
 
-    private async Task AddChildrenAsync(ICollection<SysMenuItem> items, List<RolesEnum> rolesFilter)
+    private async Task AddChildrenAsync(ICollection<SysMenuItem> items, List<int> rolesFilter)
     {
         var childIds = items.Select(i => i.Id).ToList();
 
